@@ -99,6 +99,21 @@ class MainScreen(Screen):
             )
 
         self.layout.add_widget(self.add_btn)
+    
+    def refresh_dashboard(self):
+        self.layout.clear_widgets()
+
+        for item_name, item in self.items.items():
+            location = item.get("last_seen_location", "Unknown")
+            timestamp = item.get("last_seen_time", "Never")
+
+            self.layout.add_widget(
+                Label(text=f"{item_name} - Last seen: {timestamp} at {location}")
+            )
+
+            add_btn = Button(text = "Add Item", size_hint_y=None, height=40)
+            add_btn.bind(on_release=self.go_to_add_item)
+            self.layout.add_widget(add_btn)
 
     def update_item(self, mac, location):
         mac = mac.lower()
