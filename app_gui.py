@@ -117,11 +117,12 @@ class MainScreen(Screen):
 
     def update_item(self, mac, location):
         mac = mac.lower()
+        name = self.items[mac].get("name", "Unnamed")
         if mac not in self.items:
             return
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+        self.items[mac]["name"] = name
         self.items[mac]["last_seen_location"] = location
         self.items[mac]["last_seen_time"] = timestamp
 
